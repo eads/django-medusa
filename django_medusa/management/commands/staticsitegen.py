@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django_medusa.renderers import StaticSiteRenderer
 from django_medusa.utils import get_static_renderers

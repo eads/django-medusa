@@ -52,5 +52,16 @@ def get_static_renderers():
             )
             continue
         print "Found renderers for '%s'..." % app
+    try:
+        print "Trying to use renderers specified in Django settings"
+        print "Renderers used: {0}".format(", ".join(settings.MEDUSA_RENDERERS))
+        filtered_renderers = []
+        for renderer in renderers:
+            if "{0}.{1}".format(renderer.__module__, renderer.__name__) in settings.MEDUSA_RENDERERS:
+                filtered_renderers.append(renderer)
+        renderers = filtered_renderers
+    except AttributeError:
+        print "No overrides found!"
     print
+
     return tuple(renderers)
